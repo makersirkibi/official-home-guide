@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>资料索引 · 爱游戏 信息整理页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #fafaf9;
+      color: #1e1e1e;
+      font-family: system-ui, 'Segoe UI', 'Noto Sans SC', sans-serif;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .page {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    /* 顶部导航 */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e0ddd8;
+      padding-bottom: 0.75rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .nav-brand {
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: #2f2f2f;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #5a5a5a;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #1f1f1f;
+    }
+
+    /* 核心介绍 */
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero .sub {
+      font-size: 1.05rem;
+      color: #4a4a4a;
+      margin-bottom: 2rem;
+      border-left: 3px solid #cbc6bf;
+      padding-left: 1rem;
+    }
+
+    .hero p {
+      margin-bottom: 1.2rem;
+    }
+
+    .intro-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.6rem 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+      border: 1px solid #ecebe8;
+      margin: 2rem 0 2.6rem;
+    }
+
+    .intro-card p {
+      margin-bottom: 0.6rem;
+    }
+
+    .intro-card strong {
+      font-weight: 500;
+      color: #2a2a2a;
+    }
+
+    /* 场景模块 */
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 450;
+      margin: 2.6rem 0 0.2rem;
+      border-bottom: 1px solid #e8e5e0;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      color: #5e5e5e;
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .scenes {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .scene-item {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 1.3rem 1.7rem;
+      border: 1px solid #efede9;
+      transition: box-shadow 0.15s;
+    }
+
+    .scene-item:hover {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .scene-item h3 {
+      font-weight: 500;
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+      color: #1f1f1f;
+    }
+
+    .scene-item .tag {
+      display: inline-block;
+      background: #f0eee9;
+      border-radius: 20px;
+      padding: 0.1rem 0.9rem;
+      font-size: 0.75rem;
+      color: #5f5f5f;
+      margin-bottom: 0.5rem;
+    }
+
+    .scene-item p {
+      color: #3e3e3e;
+      font-size: 0.97rem;
+    }
+
+    /* 常见说明 (FAQ 摘要) */
+    .faq-block {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.3rem 1.8rem 1.6rem;
+      border: 1px solid #e6e3de;
+      margin: 2.6rem 0 2rem;
+    }
+
+    .faq-block h2 {
+      font-size: 1.4rem;
+      font-weight: 450;
+      margin-bottom: 0.8rem;
+    }
+
+    .faq-item {
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed #e4e1db;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item strong {
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.2rem;
+      color: #2a2a2a;
+    }
+
+    .faq-item p {
+      color: #505050;
+      font-size: 0.95rem;
+    }
+
+    /* 页脚 */
+    .footer {
+      border-top: 1px solid #e2dfd9;
+      padding-top: 1.6rem;
+      margin-top: 1.6rem;
+      font-size: 0.84rem;
+      color: #7a7a7a;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .footer a {
+      color: #3f3f3f;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 0.5px;
+    }
+
+    .footer a:hover {
+      color: #000;
+    }
+
+    /* 响应式 */
+    @media (max-width: 550px) {
+      body {
+        padding: 1.2rem 0.8rem;
+      }
+      .nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+      .intro-card {
+        padding: 1.2rem 1.2rem;
+      }
+      .scene-item {
+        padding: 1rem 1.2rem;
+      }
+      .faq-block {
+        padding: 1rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 导航 -->
+  <nav class="nav">
+    <span class="nav-brand">资料索引</span>
+    <div class="nav-links">
+      <a href="#">概述</a>
+      <a href="#">场景</a>
+      <a href="#">说明</a>
+    </div>
+  </nav>
+
+  <!-- 核心介绍 -->
+  <section class="hero">
+    <h1>信息整理 · 爱游戏</h1>
+    <div class="sub">从资料归类与索引视角，理解平台结构</div>
+    <p>
+      对涉及游戏资讯、社区互动与内容聚合的平台，系统化的信息整理有助于快速定位资源。
+      以下内容围绕 <a href="https://official-home-aiyouxisports.com">爱游戏</a> 的公开资料结构展开，提取了三个典型的信息组织场景，并附有常见概念说明。
+    </p>
+  </section>
+
+  <!-- 简短的卡片式介绍 -->
+  <div class="intro-card">
+    <p><strong>资料整理基础</strong> — 任何信息平台都包含三个层次：内容来源、分类方式、呈现路径。本次索引以「爱游戏」为对象，梳理其内容架设逻辑，不涉及非公开数据或主观评价。</p>
+    <p style="margin-bottom:0; color:#4b4b4b; font-size:0.92rem;">以下场景均基于公开页面结构提炼，可作为信息检索的参考框架。</p>
+  </div>
+
+  <!-- 三个场景模块 -->
+  <h2 class="section-title">三个信息场景</h2>
+  <p class="section-desc">基于导航结构、内容分类与用户路径的整理</p>
+
+  <div class="scenes">
+
+    <div class="scene-item">
+      <span class="tag">场景一 · 导航层级</span>
+      <h3>分类入口与索引路径</h3>
+      <p>顶部导航通常聚合了主要内容分区，例如资讯、社区、赛事等。每个分区下进一步细分标签。对资料整理者而言，记录入口之间的层级关系，有助于建立全局目录。通过 <a href="https://official-home-aiyouxisports.com">爱游戏</a> 的导航结构可观察常见的内容组织模式。</p>
+    </div>
+
+    <div class="scene-item">
+      <span class="tag">场景二 · 内容聚合</span>
+      <h3>列表页与信息密度</h3>
+      <p>列表页是信息索引的核心载体，通常按时间、热度或分类排序。每条内容包含标题、摘要、标签与发布时间。整理时可提取这些字段，形成结构化清单，便于交叉引用与快速筛选。</p>
+    </div>
+
+    <div class="scene-item">
+      <span class="tag">场景三 · 详情与关联</span>
+      <h3>单页内容与关联推荐</h3>
+      <p>详情页除了主体信息外，往往包含相关推荐、标签云或评论摘要。这些关联模块是信息拓展的关键节点，在索引过程中不应忽略。记录链接之间的引用关系，可以构建更完整的信息网络。</p>
+    </div>
+
+  </div>
+
+  <!-- 常见说明 (FAQ 摘要) -->
+  <div class="faq-block">
+    <h2>常见说明</h2>
+
+    <div class="faq-item">
+      <strong>关于信息索引的范围</strong>
+      <p>本页面仅整理公开可见的页面结构与分类逻辑，不涉及用户数据、隐私内容或非公开接口。索引结果可作为内容调研的起点。</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>场景模块是否覆盖全部功能？</strong>
+      <p>三个场景选取自最常见的信息组织维度（导航、列表、详情），并不代表完整功能清单。实际平台可能包含更多细分交互。</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>如何使用索引结果？</strong>
+      <p>建议根据自身需求补充字段，例如标记信息层级、添加备注标签。索引框架可复用至其他同类平台的结构分析。</p>
+    </div>
+
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <span>信息整理页 · 基于公开资料</span>
+    <span>参考：<a href="https://official-home-aiyouxisports.com">爱游戏</a></span>
+  </footer>
+
+</div>
+</body>
+</html>
