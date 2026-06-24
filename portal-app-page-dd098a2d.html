@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开云 · 应用入口与平台说明</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      background-color: #0f0f1a;
+      color: #e4e4f0;
+    }
+
+    /* 深色头图 */
+    .hero {
+      background: linear-gradient(145deg, #0b0b1a 0%, #181833 50%, #12122a 100%);
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      position: relative;
+      border-bottom: 1px solid #2d2d50;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(transparent, #0f0f1a);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 450;
+      letter-spacing: 2px;
+      color: #f0f0ff;
+      margin-bottom: 1rem;
+    }
+
+    .hero .sub {
+      font-size: 1.1rem;
+      color: #b0b7d6;
+      max-width: 540px;
+      line-height: 1.7;
+      margin: 0 auto 0.6rem;
+      font-weight: 300;
+    }
+
+    .hero .tagline {
+      display: inline-block;
+      margin-top: 0.8rem;
+      padding: 0.4rem 1.6rem;
+      border: 1px solid #3d4b7a;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      letter-spacing: 1.2px;
+      color: #b0bef0;
+      background: rgba(55, 65, 120, 0.15);
+      backdrop-filter: blur(2px);
+    }
+
+    /* 浅色正文区 */
+    .content {
+      max-width: 960px;
+      margin: -20px auto 0;
+      padding: 0 2rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .main-card {
+      background: #1b1b30;
+      border-radius: 28px;
+      padding: 3rem 3rem 2.8rem;
+      box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
+      border: 1px solid #2e2e52;
+    }
+
+    .main-card p {
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+      color: #d6daf0;
+    }
+
+    .main-card p strong {
+      color: #e8edff;
+      font-weight: 500;
+    }
+
+    /* 强调色——用于链接、装饰 */
+    a {
+      color: #7ba4ff;
+      text-decoration: none;
+      transition: color 0.2s, border-bottom 0.2s;
+      border-bottom: 1px solid transparent;
+    }
+
+    a:hover {
+      color: #aac1ff;
+      border-bottom-color: #7ba4ff;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 2rem;
+      margin: 2rem 0 1.4rem;
+      padding: 0.2rem 0;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      background: rgba(45, 45, 80, 0.25);
+      padding: 0.8rem 1rem 0.8rem 1.2rem;
+      border-radius: 14px;
+      border-left: 3px solid #5b7ed7;
+    }
+
+    .feature-item::before {
+      content: '▹';
+      color: #7ba4ff;
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+
+    .feature-content {
+      flex: 1;
+    }
+
+    .feature-content .title {
+      font-weight: 500;
+      color: #e4eaff;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+
+    .feature-content .desc {
+      font-size: 0.9rem;
+      color: #b0b9dd;
+      line-height: 1.4;
+    }
+
+    .note-box {
+      background: #101027;
+      border-radius: 16px;
+      padding: 1.4rem 1.8rem;
+      margin: 2rem 0 1.6rem;
+      border: 1px dashed #3b4675;
+    }
+
+    .note-box p {
+      margin-bottom: 0.4rem;
+      font-size: 0.92rem;
+      color: #c9d0f0;
+    }
+
+    .faq-mini {
+      margin-top: 2.2rem;
+      border-top: 1px solid #2d2d5a;
+      padding-top: 1.6rem;
+    }
+
+    .faq-mini details {
+      margin-bottom: 0.6rem;
+      background: #1d1d38;
+      border-radius: 10px;
+      padding: 0.4rem 1rem;
+      border: 1px solid #2b2b52;
+    }
+
+    .faq-mini summary {
+      font-weight: 470;
+      color: #d2daff;
+      cursor: pointer;
+      padding: 0.5rem 0;
+      outline: none;
+    }
+
+    .faq-mini details p {
+      margin: 0.4rem 0 0.6rem;
+      font-size: 0.92rem;
+      color: #b6bee5;
+    }
+
+    .closing {
+      margin-top: 2.2rem;
+      padding-top: 1.2rem;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #b6bde0;
+      border-top: 1px solid #2a2a50;
+    }
+
+    /* 响应式 */
+    @media (max-width: 680px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero .sub {
+        font-size: 0.95rem;
+      }
+      .main-card {
+        padding: 2rem 1.2rem 1.8rem;
+        border-radius: 20px;
+      }
+      .features {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      .feature-item {
+        padding: 0.6rem 0.8rem;
+      }
+      .note-box {
+        padding: 1rem 1.2rem;
+      }
+      .content {
+        padding: 0 1rem 3rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero {
+        min-height: 340px;
+        padding: 2.5rem 1.2rem 2rem;
+      }
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- hero 深色头图 -->
+  <section class="hero">
+    <h1>开云</h1>
+    <p class="sub">一个面向应用访问与集成管理的轻量入口，聚焦信息透明与操作效率。</p>
+    <span class="tagline">portal-app-ky.com</span>
+  </section>
+
+  <!-- 浅色正文区 -->
+  <div class="content">
+    <div class="main-card">
+
+      <!-- 开场短句 -->
+      <p><strong>portal-app-ky.com</strong> 定位为“开云”的官方服务页面，旨在为使用者提供清晰的功能引导与配置说明。作为平台信息的聚合点，这里不承载复杂业务逻辑，而是以精简的结构帮助用户快速理解平台边界、接入方式以及常见问题处理路径。</p>
+
+      <!-- 承接段落 -->
+      <p>在数字化工具日趋庞杂的背景下，<a href="https://portal-app-ky.com">开云</a> 强调克制与可信：所有对外文档、更新记录及接入指引均通过该站点统一发布。您在此处获得的信息均经过核对与版本控制，避免因信息分散而产生误解。当前页面即为该站点的介绍与索引部分。</p>
+
+      <!-- 特点列表（卡片式） -->
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-content">
+            <span class="title">结构清晰</span>
+            <span class="desc">模块化分类，便于快速定位所需功能或文档。</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-content">
+            <span class="title">可溯源性</span>
+            <span class="desc">发布内容保留版本标记，变更历史可查。</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-content">
+            <span class="title">低噪设计</span>
+            <span class="desc">不堆砌无关模块，专注于信息传达本身。</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-content">
+            <span class="title">适配友好</span>
+            <span class="desc">页面布局兼顾移动端与桌面阅读习惯。</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景/提示块 -->
+      <div class="note-box">
+        <p><strong>使用提示</strong> · 若您需要接入开云平台的服务，建议先从站点“开始使用”部分获取基础配置参数。所有对外接口说明均以该站点公示为准，不推荐依赖第三方未注明来源的转载内容。</p>
+        <p style="margin-bottom:0;">如遇到站点访问异常或文档版本疑问，可参照FAQ中的联系方式进行核实。</p>
+      </div>
+
+      <!-- FAQ 摘要（折叠） -->
+      <div class="faq-mini">
+        <details>
+          <summary>开云站点与主平台是什么关系？</summary>
+          <p>portal-app-ky.com 是开云对外的主要信息出口，承担文档展示、更新公告与基础导航职能。平台核心服务仍由后端系统提供，该站点不处理用户敏感数据。</p>
+        </details>
+        <details>
+          <summary>文档更新频率如何？</summary>
+          <p>通常情况下，每次功能迭代或接口调整后，站点内容会在一个工作日内同步更新。历史版本存档保留在归档目录中。</p>
+        </details>
+        <details>
+          <summary>我能否直接通过该站点进行操作？</summary>
+          <p>该站点以说明与引导为主，绝大部分操作会跳转至对应的应用界面或管理后台。具体以页面中的链接指引为准。</p>
+        </details>
+      </div>
+
+      <!-- 温和结尾 -->
+      <div class="closing">
+        <p>— 保持可靠 · 开云 —</p>
+        <p style="font-size:0.85rem; margin-top:0.5rem; color:#8f97c0;">基于当前版本信息整理，建议定期参阅站点公告以获取最新调整。</p>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
