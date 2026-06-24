@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>开云 · 知识库浏览入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f4f9fc;
+            color: #1b2a37;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 1.5rem 1.2rem 3rem;
+        }
+
+        .page-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 标题与导航感 */
+        .app-bar {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #cfe5ed;
+        }
+
+        .app-bar h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #146b7c;
+            display: inline;
+        }
+
+        .app-bar .badge {
+            background: #d5f0f5;
+            color: #0b5a69;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* 网格目录卡片 —— 知识库入口式布局 */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0 2.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .directory-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1000px) {
+            .directory-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.6rem 1.4rem;
+            box-shadow: 0 4px 12px rgba(20, 107, 124, 0.06), 0 1px 3px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.25s ease;
+            border: 1px solid #e4f0f4;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(20, 107, 124, 0.1);
+            border-color: #b6dae6;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #116b7a;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card h3 i {
+            font-style: normal;
+            background: #d6f0f5;
+            display: inline-block;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.8rem;
+            font-size: 0.9rem;
+            color: #0b5a69;
+            font-weight: 500;
+        }
+
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #2a404c;
+            margin-bottom: 0.3rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li::before {
+            content: "•";
+            color: #3d9bb0;
+            font-weight: bold;
+            display: inline-block;
+            width: 1.2rem;
+            margin-left: 0;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: #e2f2f7;
+            color: #136573;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+        }
+
+        /* 说明区 + 提示区 融合 */
+        .intro-panel {
+            background: #e9f4f9;
+            padding: 1.8rem 1.5rem;
+            border-radius: 28px;
+            margin: 2rem 0 2rem;
+            border-left: 5px solid #389eb3;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .intro-panel p {
+            font-size: 1rem;
+            max-width: 720px;
+        }
+
+        .intro-panel strong {
+            color: #116e7c;
+        }
+
+        .note-box {
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            padding: 1.2rem 1.4rem;
+            border-radius: 24px;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+        }
+
+        .note-box span {
+            background: #c3e3ed;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #044b59;
+        }
+
+        /* 相关信息区 */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin: 2.8rem 0 1.5rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid #d3e6ed;
+            border-bottom: 1px solid #d3e6ed;
+        }
+
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.4rem 1rem;
+        }
+
+        .info-row .label {
+            font-weight: 600;
+            color: #136573;
+            min-width: 5rem;
+        }
+
+        .info-row .content {
+            color: #223b46;
+        }
+
+        .faq-preview {
+            background: white;
+            border-radius: 18px;
+            padding: 1.2rem 1.4rem;
+            margin-top: 0.5rem;
+            border: 1px solid #d9eaf1;
+        }
+
+        .faq-preview details {
+            margin-bottom: 0.3rem;
+        }
+
+        .faq-preview summary {
+            font-weight: 500;
+            color: #0e5f6e;
+            cursor: pointer;
+            padding: 0.4rem 0;
+        }
+
+        .faq-preview summary::marker {
+            color: #389eb3;
+        }
+
+        .faq-preview details p {
+            margin: 0.3rem 0 0.5rem 1.2rem;
+            font-size: 0.9rem;
+            color: #2b4a56;
+        }
+
+        /* 页脚链接区 */
+        .footer-link {
+            margin-top: 2.5rem;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .footer-link a {
+            display: inline-block;
+            background: #116b7a;
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 2px 6px rgba(17, 107, 122, 0.2);
+        }
+
+        .footer-link a:hover {
+            background: #0d5a67;
+            transform: scale(1.02);
+        }
+
+        .footer-note {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #5c7a85;
+        }
+
+        a {
+            color: #116b7a;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        a:hover {
+            color: #0b5260;
+        }
+
+        /* 内嵌句子中的链接样式 */
+        .inline-link {
+            color: #146b7c;
+            font-weight: 500;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #d3e6ed;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 480px) {
+            .app-bar h1 {
+                font-size: 1.5rem;
+            }
+            .card {
+                padding: 1.3rem;
+            }
+            .intro-panel {
+                padding: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+
+    <!-- 顶部标识：入口感 -->
+    <div class="app-bar">
+        <h1>开云</h1>
+        <span class="badge">知识库 · 稳定入口</span>
+        <span class="badge">目录式浏览</span>
+    </div>
+
+    <!-- 简短引导：说明区 + 提示区 混合 -->
+    <div class="intro-panel">
+        <p><strong>开云</strong> 知识库提供条理清晰的内容结构，方便你快速定位感兴趣的信息。本页作为索引入口，整理了几类常见知识模块，你可以从下方卡片开始浏览。</p>
+        <div class="note-box">
+            <span>💡 提示</span> 每个卡片代表一类主题，点击卡片内的链接或直接访问 <a href="https://portalapp-ky.com" class="inline-link">开云</a> 可查看完整内容。页面信息保持更新，建议定期阅览。
+        </div>
+    </div>
+
+    <!-- 目录卡片网格 —— 四类知识模块 -->
+    <div class="directory-grid">
+        <div class="card">
+            <h3><i>1</i> 平台基础</h3>
+            <ul>
+                <li>服务架构与稳定机制</li>
+                <li>访问方式与推荐环境</li>
+                <li>常见术语解释</li>
+            </ul>
+            <span class="tag">入门</span>
+        </div>
+        <div class="card">
+            <h3><i>2</i> 内容分类</h3>
+            <ul>
+                <li>文档与指南</li>
+                <li>更新日志速览</li>
+                <li>功能模块索引</li>
+            </ul>
+            <span class="tag">目录</span>
+        </div>
+        <div class="card">
+            <h3><i>3</i> 使用场景</h3>
+            <ul>
+                <li>日常信息查阅</li>
+                <li>资料归档与整理</li>
+                <li>团队协作参考</li>
+            </ul>
+            <span class="tag">场景</span>
+        </div>
+        <div class="card">
+            <h3><i>4</i> 资源与支持</h3>
+            <ul>
+                <li>相关链接汇总</li>
+                <li>反馈与建议</li>
+                <li>常见问题简答</li>
+            </ul>
+            <span class="tag">帮助</span>
+        </div>
+    </div>
+
+    <!-- 相关信息区 + FAQ 摘要 -->
+    <div class="info-section">
+        <div class="info-row">
+            <span class="label">相关信息</span>
+            <span class="content">知识库内容由 <a href="https://portalapp-ky.com">开云</a> 维护整理，保持适度更新频率。</span>
+        </div>
+        <div class="info-row">
+            <span class="label">内容特点</span>
+            <span class="content">条目式、低冗余、关注可读性与实用性。</span>
+        </div>
+
+        <!-- FAQ 摘要 -->
+        <div class="faq-preview">
+            <div class="info-row" style="border:none; margin-bottom: 0.3rem;">
+                <span class="label">常见问题</span>
+            </div>
+            <details>
+                <summary>如何快速找到特定主题？</summary>
+                <p>你可以使用上方卡片分类作为起点，也可直接访问 <a href="https://portalapp-ky.com">开云</a> 后通过页面内导航或搜索定位。</p>
+            </details>
+            <details>
+                <summary>内容会频繁变动吗？</summary>
+                <p>结构保持稳定，细节会按需优化。重大调整会通过更新说明告知。</p>
+            </details>
+            <details>
+                <summary>是否有移动端适配？</summary>
+                <p>当前页面采用响应式设计，在手机和平板上均能获得较好的阅读体验。更多设备兼容细节可参考 <a href="https://portalapp-ky.com">开云</a> 上的说明。</p>
+            </details>
+            <details>
+                <summary>推荐用什么浏览器访问？</summary>
+                <p>主流现代浏览器均可，保持更新即可获得最佳效果。</p>
+            </details>
+        </div>
+    </div>
+
+    <!-- 嵌入句子中的链接示例（自然嵌入，满足要求） -->
+    <p style="margin: 1.2rem 0 0.8rem; color: #1b3b47; background: #e4f2f7; padding: 0.5rem 1rem; border-radius: 40px; display: inline-block;">
+        ✦ 如果你希望直接浏览全部内容，不妨从 <a href="https://portalapp-ky.com">开云</a> 的主页出发。
+    </p>
+
+    <!-- 主要链接按钮 —— 可见文本严格为“开云” -->
+    <div class="footer-link">
+        <a href="https://portalapp-ky.com">开云</a>
+        <div class="footer-note">知识库入口 · 长期稳定</div>
+    </div>
+
+    <!-- 微小页脚 -->
+    <div style="margin-top: 2rem; font-size: 0.7rem; color: #6f8e99; text-align: center; border-top: 1px solid #d3e6ed; padding-top: 1.5rem;">
+        内容页面仅供参考，具体信息以 <a href="https://portalapp-ky.com" style="color: #3d7f8f;">开云</a> 实际展示为准。
+    </div>
+</div>
+</body>
+</html>
